@@ -32,7 +32,8 @@ import matplotlib.pyplot as plt
 # %% 
 
 onsets = np.zeros(120)
-onsets[1:11:1] = 1
+indx = range(0,120,11)
+onsets[indx]= 1
 plt.plot(onsets) #, title ('simulated stimulus onsets, every 11 scans')
 plt.title('simulated stimulus onsets, every 11 scans')
 
