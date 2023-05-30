@@ -102,11 +102,12 @@ absspec = np.abs(np.fft.fft(whitesig[:, 1:100]))
 
 
 # %%
-avgspec=np.mean(sumspec, axis=0)
+avgspec=np.mean(sumspec.real, axis=0)
 
 plt.figure()
-plt.plot(np.mean(avgspec[:, 2:100]))
-plt.axis([0, 100, 0, np.max(np.max(sumspec[:, 2:100]))])
+#plt.plot(avgspec[2:-1])
+plt.plot(np.mean(absspec, axis=0))
+#plt.axis([0, 100, 0, np.max(np.max(sumspec[:, 2:100]))])
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Amplitude')
 plt.title('Averaged amplitude spectrum')
@@ -254,11 +255,11 @@ for trial in range(50):
 
 
 # %%
-
+""" 
 for trial in range(50):
     brownsig[trial, :] = np.cumsum(whitesig[trial, :])
-    alphasig=np.sin(2 * np.pi * time * np.random.uniform(low=8.0, high=11.0, size=(1,1000)))
-    #alphasig = np.sin(2 * np.pi * time * (8 + np.random.rand(1) * 3)) * 3
+    #alphasig=np.sin(2 * np.pi * time * np.random.uniform(low=8.0, high=11.0, size=(1,1000)))
+    alphasig = np.sin(2 * np.pi * time * (8 + np.random.rand(1) * 3)) * 3
     #random.uniform(low=0.0, high=1.0, size=(50,1000))-0.5
     brownsig[trial, 300:700] = brownsig[trial, 300:700] + alphasig[300:700]
     
@@ -278,7 +279,7 @@ for trial in range(50):
     plt.title('Amplitude spectrum')
     
     #plt.pause(0.2)
-
+ """
 
 # %%
 
@@ -409,7 +410,7 @@ plt.figure()
 plt.plot(faxis[2:100], np.mean((sumspec[:, 2:100]), axis=0))
 plt.xlabel('Frequency (Hz)'), plt.ylabel('Amplitude'), plt.title('Averaged amplitude spectrum')
 
-
+# %%
 # plt.figure()
 # plt.plot(faxis[2:100], np.mean((sumspec[:, 2:100]), axis=0))
 # plt.xlabel('Frequency (Hz)'), plt.ylabel('Amplitude'), plt.title('Averaged amplitude spectrum')

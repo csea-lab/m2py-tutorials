@@ -34,7 +34,7 @@ import matplotlib.pyplot as plt
 onsets = np.zeros(120)
 onsets[1:11:1] = 1
 plt.plot(onsets) #, title ('simulated stimulus onsets, every 11 scans')
-
+plt.title('simulated stimulus onsets, every 11 scans')
 
 # %% [markdown]
 
@@ -49,6 +49,7 @@ plt.plot(onsets) #, title ('simulated stimulus onsets, every 11 scans')
 g_f = np.arange(0.1,5.1,0.5)
 kernel = [1./math.gamma(i) for i in g_f]
 plt.plot(kernel) #, title('an inverted gamma kernel, length 10')
+plt.title('an inverted gamma kernel, length 10')
 
 # %% [markdown]
 
@@ -61,7 +62,7 @@ plt.plot(kernel) #, title('an inverted gamma kernel, length 10')
 g_f = np.arange(0.1,5,0.5)
 kernel = [1./math.gamma(i) for i in g_f]
 plt.plot(kernel) #, title('an inverted gamma kernel, length 10')
-
+plt.title('an inverted gamma kernel, length 10')
 
 # %% [markdown]
 
@@ -74,6 +75,7 @@ plt.plot(kernel) #, title('an inverted gamma kernel, length 10')
 convolution  = np.convolve(onsets, kernel); 
 
 plt.plot(convolution) #, title('onset vector convolved with canonical BOLD response')
+plt.title('onset vector convolved with canonical BOLD response')
 
 # %% [markdown]
 
@@ -88,6 +90,7 @@ kernel = [1./math.gamma(i) for i in g_f] # this Kernel is twice as long
 convolution  = np.convolve(onsets, kernel); 
 #figure
 plt.plot(convolution) #, title('Convolution with temporal summation')
+plt.title('Convolution with temporal summation')
 
 # %% [markdown]
 
@@ -107,6 +110,7 @@ onsets = np.zeros((120,1))
 onsets[[3,14,22,36,46,50,66,86,91,106,115],] = 1; #simple case where a stimulus is on every 11 scans
 print(onsets.shape)
 plt.plot(onsets) #, title ('simulated stimulus onsets, every 11 scans')
+plt.title('simulated stimulus onsets, every 11 scans')
 
 # %% [markdown]
 
@@ -116,6 +120,7 @@ plt.plot(onsets) #, title ('simulated stimulus onsets, every 11 scans')
 
 convolution  = np.convolve(onsets.squeeze(), kernel); 
 plt.plot(convolution) #, title('Convolution of random ITIs')
+plt.title('Convolution of random ITIs')
 
 # %% [markdown]
 
@@ -138,6 +143,7 @@ onsets[set3,] = 1;
 ##onsets[[3, 14, 22, 36, 46, 50, 66, 86, 91, 106, 115]+2,] = 1;
 #onsets[[3, 14, 22, 36, 46, 50, 66, 86, 91, 106, 115]+3,] = 1;
 plt.plot(onsets) #, title ('simulated stimulus onsets, every 11 scans')
+plt.title('simulated stimulus onsets, every 11 scans')
 
 # %% [markdown]
 
@@ -149,6 +155,7 @@ plt.plot(onsets) #, title ('simulated stimulus onsets, every 11 scans')
 
 convolution  = np.convolve(onsets.squeeze(), kernel); 
 plt.plot(convolution) #, title('Convolution with 4-TR-long events'), ylabel('note the scale')
+plt.title('Convolution with 4-TR-long events')
 
 # %% [markdown]
 
