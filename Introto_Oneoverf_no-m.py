@@ -1,5 +1,5 @@
 # %%
-%matplotlib inline
+#%matplotlib inline
 
 # %% [markdown]
 # # Demo: Illustrating 1/f and DFT
@@ -85,7 +85,7 @@ faxis = np.arange(0, 501)
 
 whitesig = np.random.uniform(low=0.0, high=1.0, size=(50,1000))-0.5
 spec = np.abs(np.fft.fft(whitesig, axis=1))
-np.abs(fftspec[1:100]
+#np.abs(fftspec[1:100])
 
 avgspec=np.mean(sumspec[:, 2:100], axis=0)
 #fftspec = np.fft.fftshift(avgspec)
@@ -257,7 +257,7 @@ for trial in range(50):
 
 for trial in range(50):
     brownsig[trial, :] = np.cumsum(whitesig[trial, :])
-    alphasig=np.sin(2 * np.pi * time * np.random.uniform(low=8.0, high=11.0, size=(1,1000))
+    alphasig=np.sin(2 * np.pi * time * np.random.uniform(low=8.0, high=11.0, size=(1,1000)))
     #alphasig = np.sin(2 * np.pi * time * (8 + np.random.rand(1) * 3)) * 3
     #random.uniform(low=0.0, high=1.0, size=(50,1000))-0.5
     brownsig[trial, 300:700] = brownsig[trial, 300:700] + alphasig[300:700]
@@ -445,119 +445,119 @@ plt.show()
 # %% [markdown]
 # 
 
-# %%
-for trial = 1:50
-    brownsig(trial,:) = cumsum(whitesig(trial, :));
-    subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspec(trial, :) = abs(fftspec); % save it for later
-    subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
-    pause(.2)
-end
+# %% [matlab]
+# for trial = 1:50
+#     brownsig(trial,:) = cumsum(whitesig(trial, :));
+#     subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspec(trial, :) = abs(fftspec); % save it for later
+#     subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
+#     pause(.2)
+# end
 
-figure
-plot(mean((sumspec(:, 2:30))))
-xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
+# figure
+# plot(mean((sumspec(:, 2:30))))
+# xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
 
 # %% [markdown]
 # now we add a variable alpha oscillation to each trial
 
-# %%
-for trial = 1:50
-    brownsig(trial,:) = cumsum(whitesig(trial, :));
-    alphasig = sin(2*pi*time*(8+rand(1,1).*3)).*3;
-    brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
-    subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspec(trial, :) = abs(fftspec); % save it for later
-    subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
-    pause(.2)
+# %% [matlab]
+# for trial = 1:50
+#     brownsig(trial,:) = cumsum(whitesig(trial, :));
+#     alphasig = sin(2*pi*time*(8+rand(1,1).*3)).*3;
+#     brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
+#     subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspec(trial, :) = abs(fftspec); % save it for later
+#     subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
+#     pause(.2)
 
-end
+# end
 
-figure
-plot(mean((sumspec(:, 2:30))))
-xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
+# figure
+# plot(mean((sumspec(:, 2:30))))
+# xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
 
 # %% [markdown]
 # Same, but we do 10 runs and look at the variability across runs after averaging 50 trials 
 
-# %%
-figure, hold on
+# %% [matlab]
+# figure, hold on
 
-for run = 1:10
-  for trial = 1:50
-    brownsig(trial,:) = cumsum(whitesig(trial, :));
-    alphasig = sin(2*pi*time*(8+rand(1,1).*3)).*3;
-    brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspecsine(trial, :) = abs(fftspec); % save it for later
-  end
+# for run = 1:10
+#   for trial = 1:50
+#     brownsig(trial,:) = cumsum(whitesig(trial, :));
+#     alphasig = sin(2*pi*time*(8+rand(1,1).*3)).*3;
+#     brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspecsine(trial, :) = abs(fftspec); % save it for later
+#   end
 
-  plot(mean((sumspecsine(:, 2:30))))
-  xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum with Sine-shaped alpha')
-end
-hold off
+#   plot(mean((sumspecsine(:, 2:30))))
+#   xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum with Sine-shaped alpha')
+# end
+# hold off
 
 # %% [markdown]
 # Same, but we do 10 runs with SAWTOOTH instead of sine-shaped akpha and look at the variability across runs after averaging 50 trials 
 
-# %%
-figure, hold on
+# %% [matlab]
+# figure, hold on
 
-for run = 1:10
-  for trial = 1:50
-    brownsig(trial,:) = cumsum(whitesig(trial, :));
-    alphasig = sawtooth(2*pi*time*(8+rand(1,1).*3)).*3;
-    brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspec(trial, :) = abs(fftspec); % save it for later
-  end
+# for run = 1:10
+#   for trial = 1:50
+#     brownsig(trial,:) = cumsum(whitesig(trial, :));
+#     alphasig = sawtooth(2*pi*time*(8+rand(1,1).*3)).*3;
+#     brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspec(trial, :) = abs(fftspec); % save it for later
+#   end
 
-  plot(mean((sumspec(:, 2:30))))
-  xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum with non-sine-shaped alpha')
-end
-hold off
+#   plot(mean((sumspec(:, 2:30))))
+#   xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum with non-sine-shaped alpha')
+# end
+# hold off
 
-figure
-  plot(mean((sumspecsine(:, 2:30))))
-  hold on 
-  plot(mean((sumspec(:, 2:30))))
-  legend('Sine-shaped', 'Sawtooth-shaped')
+# figure
+#   plot(mean((sumspecsine(:, 2:30))))
+#   hold on 
+#   plot(mean((sumspec(:, 2:30))))
+#   legend('Sine-shaped', 'Sawtooth-shaped')
 
 # %% [markdown]
 # Let's make a dent into the 1/f shape
 
-# %%
-for trial = 1:50
+# %% [matlab]
+# for trial = 1:50
 
-    brownsig(trial,:) = cumsum(whitesig(trial, :))-mean(cumsum(whitesig(trial, :)));
-    %subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspec(trial, :) = abs(fftspec); % save it for later
-    %subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
+#     brownsig(trial,:) = cumsum(whitesig(trial, :))-mean(cumsum(whitesig(trial, :)));
+#     %subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspec(trial, :) = abs(fftspec); % save it for later
+#     %subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
 
-end
+# end
 
-figure
-plot(faxis(2:30), mean((sumspec(:, 2:30))))
-xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
-hold on
+# figure
+# plot(faxis(2:30), mean((sumspec(:, 2:30))))
+# xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
+# hold on
 
-% change the gain
-for trial = 1:50
+# % change the gain
+# for trial = 1:50
 
-    brownsig(trial,:) = cumsum(whitesig(trial, :).*2)-mean(cumsum(whitesig(trial, :).*2));
-    %subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspec(trial, :) = abs(fftspec); % save it for later
-    %subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
+#     brownsig(trial,:) = cumsum(whitesig(trial, :).*2)-mean(cumsum(whitesig(trial, :).*2));
+#     %subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspec(trial, :) = abs(fftspec); % save it for later
+#     %subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
 
-end
+# end
 
-plot(faxis(2:30),mean((sumspec(:, 2:30))))
-xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
-hold on
+# plot(faxis(2:30),mean((sumspec(:, 2:30))))
+# xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
+# hold on
 
 # %% [markdown]
 # 
