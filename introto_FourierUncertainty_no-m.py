@@ -1,5 +1,5 @@
 # %%
-%matplotlib inline
+# %matplotlib inline
 
 # %%
 import numpy as np
@@ -28,8 +28,8 @@ import scipy.fft as fft
 time = np.linspace(0.001,5, 5000) # Five seconds of discrete time, sampled at 1000 Hz
 time.shape
 
-# %%
-time = 0.001:0.001:5; % Five seconds of discrete time, sampled at 1000 Hz
+# %% [matlab]
+#time = 0.001:0.001:5; % Five seconds of discrete time, sampled at 1000 Hz
 
 # %% [markdown]
 # now, a Brownian noise (biorealistic) time series not unlike EEG/LFP, representing one trial of neural mass data
@@ -43,9 +43,9 @@ time = 0.001:0.001:5; % Five seconds of discrete time, sampled at 1000 Hz
 temp=np.random.uniform(low=0.0, high=1.0, size=(5000))-0.5
 brownsig = np.cumsum(temp)
 
-# %%
-temp1 = rand(size(time))-.5; % zero-centered white noise
-brownsig = cumsum(temp1);  % Brownian noise is the cumulative sum of white noise
+# %% [matlab]
+# temp1 = rand(size(time))-.5; % zero-centered white noise
+# brownsig = cumsum(temp1);  % Brownian noise is the cumulative sum of white noise
 
 # %% [markdown]
 # Now, add 10.8 Hz sine wave to the Brownian noise. Note that the 10.8 Hz signal is relatively small and is not easily detected in the time domain data, with the unaided eye. Thus, its waveform shape or time ranges of interest would also be difficult to identify just by looking at the data. Thus, we will conduct DFT later. 
@@ -65,14 +65,14 @@ plt.subplot(2, 1, 2)
 plt.plot(time, testsig)
 plt.title('The Brownian noise plus the 10.8 Hz sine wave') 
 
-# %%
-SinWave = sin(2*pi*time*10.8); % a 10.8 Hz sine wave
-testsig2  = brownsig-mean(brownsig); % zero-centered Brownian noise
-testsig1 = testsig2 + SinWave; % add the sine wave
-testsig = detrend(testsig1); % detrend
-figure
-subplot(2,1,1), plot(time, brownsig), title('The Brownian noise') % the real part
-subplot(2,1,2), plot(time, testsig), title('The Brownian noise plus the 10.8 Hz sine wave') 
+# %% [matlab]
+# SinWave = sin(2*pi*time*10.8); % a 10.8 Hz sine wave
+# testsig2  = brownsig-mean(brownsig); % zero-centered Brownian noise
+# testsig1 = testsig2 + SinWave; % add the sine wave
+# testsig = detrend(testsig1); % detrend
+# figure
+# subplot(2,1,1), plot(time, brownsig), title('The Brownian noise') % the real part
+# subplot(2,1,2), plot(time, testsig), title('The Brownian noise plus the 10.8 Hz sine wave') 
 
 
 # %% [markdown]
@@ -139,15 +139,15 @@ plt.show()
 # plt.show()
 
 
-# %%
-for index = 1:5
-    segment = 1:1000*index; % look at increasing segments
-    complexspectrum = fft(testsig(segment));
-    faxis = 0:1000/length(segment):500; % the frequancy axis always ranges from 0 to 500, but steps get smaller as length increases
-    amplitudespec = complexspectrum./length(segment); % normalized amplitude spectrum
-    subplot(5,1,index), b1 = plot(faxis(3:25*index), abs(complexspectrum(3:25*index))); title(['amplitude spectrum based on a ' num2str(index) '-sec segment']) % the absolute value (amplitude)
-    xline(10.8)
-end
+# %% [matlab]
+# for index = 1:5
+#     segment = 1:1000*index; % look at increasing segments
+#     complexspectrum = fft(testsig(segment));
+#     faxis = 0:1000/length(segment):500; % the frequancy axis always ranges from 0 to 500, but steps get smaller as length increases
+#     amplitudespec = complexspectrum./length(segment); % normalized amplitude spectrum
+#     subplot(5,1,index), b1 = plot(faxis(3:25*index), abs(complexspectrum(3:25*index))); title(['amplitude spectrum based on a ' num2str(index) '-sec segment']) % the absolute value (amplitude)
+#     xline(10.8)
+# end
 
 
 # %% [markdown]
@@ -182,18 +182,19 @@ ax[2].set_ylabel('Amplitude')
 fig.set_size_inches(5,10)
 plt.show()
 
-# %%
-figure
-for index = 1:5
-    segment = 1:1000*index; % look at increasing segments
-    complexspectrum = fft(testsig(segment));
-    faxis = 0:1000/length(segment):500; % the frequancy axis always ranges from 0 to 500, but steps get smaller as length increases
-    amplitudespec = complexspectrum./length(segment); % normalized amplitude spectrum
-    subplot(5,1,index), b1 = plot(faxis(3:25*index), abs(complexspectrum(3:25*index))); title(['amplitude spectrum based on a ' num2str(index) '-sec segment']) % the absolute value (amplitude)
-    xlabel('Frequency in Hz') 
-    xlim([4 18])
-    xline(10.8, 'r')
-end
+# %% [matlab]
+
+# figure
+# for index = 1:5
+#     segment = 1:1000*index; % look at increasing segments
+#     complexspectrum = fft(testsig(segment));
+#     faxis = 0:1000/length(segment):500; % the frequancy axis always ranges from 0 to 500, but steps get smaller as length increases
+#     amplitudespec = complexspectrum./length(segment); % normalized amplitude spectrum
+#     subplot(5,1,index), b1 = plot(faxis(3:25*index), abs(complexspectrum(3:25*index))); title(['amplitude spectrum based on a ' num2str(index) '-sec segment']) % the absolute value (amplitude)
+#     xlabel('Frequency in Hz') 
+#     xlim([4 18])
+#     xline(10.8, 'r')
+# end
 
 # %% [markdown]
 # Note that with increasing duration of the segment entered into DFT, the spectrum becomes more fine-grained. It is also clear from the above that the 10.8 Hz narrow band signal (vertical red line) is best captured by the 5 second time window , where the frequency resolution (the distance of the bins on the x-axis) is 1/5 = 0.2 Hz. With the other segment lengths, there is no x-tick that corresponds to 10.8 Hz. For example, with a 3 second window, the resolution is 1/3 = 0.33 Hz, and thus the spectrum will have bins at the following frequencies, none of which corresponds to 10.8 Hz:
@@ -204,10 +205,10 @@ frequencies = np.arange(0, 30.1, 1/3)
 print("frequencies (Hz) available in the spectrum based on a 3-second data segment:")
 print(frequencies)
 
-# %%
-frequencies = 0:1/3:30;
-disp('frequencies (Hz) available in the spectrum based on a 3-second data segment:')
-disp(frequencies')
+# %% [matlab]
+# frequencies = 0:1/3:30;
+# disp('frequencies (Hz) available in the spectrum based on a 3-second data segment:')
+# disp(frequencies')
 
 # %% [markdown]
 # The absence of a bin at a given frequency will cause any narrow-band signal at that frequency to be represented at multiple other bins, typically the bins closest to the actual frequency. This is often called leaking, where spectral energy is showing up at frequencies other than the actual frequency, because of insufficient resolution of the spectrum. 
@@ -237,25 +238,25 @@ plt.ylabel('Amplitude')
 plt.axvline(10.5, color='r', linestyle='--',linewidth=0.5)
 plt.axhline(np.mean(amplitudespec50[:, 11]), color='m', linestyle='--',linewidth=0.5)
 
-# %%
-figure
-amplitudespec50 = []; 
-SinWave = sin(2*pi*time*10.5); % a 10.5 Hz sine wave
-for trial = 1:50
-    temp1 = rand(size(time))-.5; % zero-centered white nois
-    brownsig = cumsum(temp1);  % Brownian noise is the cumulative sum of white noise    
-    testsig2  = brownsig-mean(brownsig); % zero-centered Brownian noise
-    testsig1 = testsig2 + SinWave; % add the sine wave
-    testsig = detrend(testsig1); % detrend
-    complexspectrum = fft((testsig(1:1000)));
-    amplitudespec50(trial,:) = abs(complexspectrum./length(segment));
-end
-faxis = 0:500;
-bar(faxis(4:30), mean(amplitudespec50(:, 4:30))); 
-title(['Averaging does not recover a frequency misrepresented by the DFT']) % the absolute value (amplitude)
-xlabel('Frequency in Hz') 
-xline(10.5, 'r')
-yline (mean(amplitudespec50(:, 11)), 'm')
+# %% [matlab]
+# figure
+# amplitudespec50 = []; 
+# SinWave = sin(2*pi*time*10.5); % a 10.5 Hz sine wave
+# for trial = 1:50
+#     temp1 = rand(size(time))-.5; % zero-centered white nois
+#     brownsig = cumsum(temp1);  % Brownian noise is the cumulative sum of white noise    
+#     testsig2  = brownsig-mean(brownsig); % zero-centered Brownian noise
+#     testsig1 = testsig2 + SinWave; % add the sine wave
+#     testsig = detrend(testsig1); % detrend
+#     complexspectrum = fft((testsig(1:1000)));
+#     amplitudespec50(trial,:) = abs(complexspectrum./length(segment));
+# end
+# faxis = 0:500;
+# bar(faxis(4:30), mean(amplitudespec50(:, 4:30))); 
+# title(['Averaging does not recover a frequency misrepresented by the DFT']) % the absolute value (amplitude)
+# xlabel('Frequency in Hz') 
+# xline(10.5, 'r')
+# yline (mean(amplitudespec50(:, 11)), 'm')
 
 # %% [markdown]
 # It is apparent that averaging many trials with the 10.8 Hz signal misrepresented recovered some of the signal but it still fails to indicate its exact frequency. When aiming to measure a narrow band signal of interest, it is recommended to ensure that a frequency bin is located in the spectrum exactly at the frequency of interest. This can be ensured by calculating the wavelength (cycle duration) of the frequency of interest and using an integer multiple of that frequency. In our case: 
@@ -270,13 +271,13 @@ print('cycleduration: ',cycleduration)
 durationvector = np.arange(cycleduration,6000, cycleduration)
 print(durationvector)
 
-# %%
-% the wavelength of 10.5 Hz oscillation
-cycleduration = 1000/10.5 % in miliseconds
-% display the window length in miliseconds that result in spectra with a
-% bin at 10.8 Hz
-durationvector = cycleduration:cycleduration:6000;
-disp(durationvector')
+# %% [matlab]
+# % the wavelength of 10.5 Hz oscillation
+# cycleduration = 1000/10.5 % in miliseconds
+# % display the window length in miliseconds that result in spectra with a
+# % bin at 10.8 Hz
+# durationvector = cycleduration:cycleduration:6000;
+# disp(durationvector')
 
 # %% [markdown]
 # A 2-sec segment duration would capture the 10.5 Hz oscillation. Let's try out what difference this makes
@@ -302,25 +303,25 @@ plt.ylabel('Amplitude')
 plt.axvline(10.5, color='r', linestyle='--',linewidth=0.5)
 plt.axhline(np.mean(amplitudespec50[:, 11]), color='m', linestyle='--',linewidth=0.5)
 
-# %%
-figure
-amplitudespec50 = []; 
-SinWave = sin(2*pi*time*10.5); % a 10.5 Hz sine wave
-for trial = 1:50
-    temp1 = rand(size(time))-.5; % zero-centered white nois
-    brownsig = cumsum(temp1);  % Brownian noise is the cumulative sum of white noise    
-    testsig2  = brownsig-mean(brownsig); % zero-centered Brownian noise
-    testsig1 = testsig2 + SinWave; % add the sine wave
-    testsig = detrend(testsig1); % detrend
-    complexspectrum = fft((testsig(1:2000)));
-    amplitudespec50(trial,:) = abs(complexspectrum./length(segment));
-end
-faxis = 0:0.5:500;
-bar(faxis(4:60), mean(amplitudespec50(:, 4:60))); 
-title(['Selecting the appropriate window length correctly represents narrow band signal']) % the absolute value (amplitude)
-xlabel('Frequency in Hz') 
-xline(10.5, 'r')
-yline (mean(amplitudespec50(:, 22)), 'g')
+# %%  [matlab]
+# figure
+# amplitudespec50 = []; 
+# SinWave = sin(2*pi*time*10.5); % a 10.5 Hz sine wave
+# for trial = 1:50
+#     temp1 = rand(size(time))-.5; % zero-centered white nois
+#     brownsig = cumsum(temp1);  % Brownian noise is the cumulative sum of white noise    
+#     testsig2  = brownsig-mean(brownsig); % zero-centered Brownian noise
+#     testsig1 = testsig2 + SinWave; % add the sine wave
+#     testsig = detrend(testsig1); % detrend
+#     complexspectrum = fft((testsig(1:2000)));
+#     amplitudespec50(trial,:) = abs(complexspectrum./length(segment));
+# end
+# faxis = 0:0.5:500;
+# bar(faxis(4:60), mean(amplitudespec50(:, 4:60))); 
+# title(['Selecting the appropriate window length correctly represents narrow band signal']) % the absolute value (amplitude)
+# xlabel('Frequency in Hz') 
+# xline(10.5, 'r')
+# yline (mean(amplitudespec50(:, 22)), 'g')
 
 # %% [markdown]
 # It is evident that the 10.5 Hz oscillation is not just more concentrated in one bin, but that the total amplitude captured with appropriate frequency resolution (horizontal green line) exceeds the amplitude estimated from the combined 10 and 11 Hz bins in the 1-sec spectrum (horizontal magenta line in the figure above). Thus, leaking leads to underestimation of the true spectral amplitude and will bias empirical studies of narrow band oscillations. How about broader-band phenomena? We will examine this question next. 
@@ -342,10 +343,10 @@ time = np.linspace(0.001,5, 1000) #one second of discrete time
 faxis = faxis = fft.fftfreq(500,1/500) #frequency axis goes from 0 to nyquist in steps of 1
 faxis
 
-# %%
-clear
-time = 0.001:0.001:1; % one second of discrete time
-faxis = 0:500; % frequency axis goes from 0 to nyquist in steps of 1
+# %% [matlab]
+# clear
+# time = 0.001:0.001:1; % one second of discrete time
+# faxis = 0:500; % frequency axis goes from 0 to nyquist in steps of 1
 
 # %% [markdown]
 # ... now we make 50 trials of white noise (stochastic) segments, the same noise to be used for all future simulations in this demo. We display the noise and the spectrum of each simulated trial. Note the flat nature of the spectrum
@@ -369,17 +370,17 @@ for trial in range(50):
 #     sumspec(trial, :) = abs(fftspec); % save it for later
 #     subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
 
-# %%
-whitesig = rand(50,1000)-.5; % zero centered white noise
+# %% [matlab]
+# whitesig = rand(50,1000)-.5; % zero centered white noise
 
-for trial = 1:50
-    subplot(2,1,1), plot(time, whitesig(trial, :)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of white noise')
-    fftspec = fft(whitesig(trial, :)'); % calculate DFT
-    sumspec(trial, :) = abs(fftspec); % save it for later
-    subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
-    pause(.2)
+# for trial = 1:50
+#     subplot(2,1,1), plot(time, whitesig(trial, :)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of white noise')
+#     fftspec = fft(whitesig(trial, :)'); % calculate DFT
+#     sumspec(trial, :) = abs(fftspec); % save it for later
+#     subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
+#     pause(.2)
 
-end
+# end
 
 # %% [markdown]
 # Next, we repeat that process with the cumulative sum of the white noise, which results in brownian noise. The spectrum of brownian noise is expected to have a 1/f shape, characteristic for biological (including neural) systems. We also add a brief 400-ms oscillatory response to each trial, in the middle of the 1-sec time segment (300 to 700 ms). Many authors define an oscillation as a narrow band signal, so we add a narrow band signal to each trial, but the exact frequency of the narrow band signal varies between trials. We let it vary to randomly take on values within the young adult alpha range 8 to 13 Hz. 
@@ -405,21 +406,21 @@ fig = plt.figure()
 plt.plot(np.mean(sumspec1[:,2:30], axis=0)), plt.xlabel('Frequency (Hz)'),plt.ylabel('Amplitude'),plt.title('Average amplitude spectrum')
 
 
-# %%
-for trial = 1:50
-    brownsig(trial,:) = cumsum(whitesig(trial, :));
-    alphasig = sin(2*pi*time*(8+rand(1,1).*5)).*3; % * 3 is a scaling factor
-    brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
-    subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspec1(trial, :) = abs(fftspec); % save it for later
-    subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
-    pause(.2)
-end
+# %% [matlab]
+# for trial = 1:50
+#     brownsig(trial,:) = cumsum(whitesig(trial, :));
+#     alphasig = sin(2*pi*time*(8+rand(1,1).*5)).*3; % * 3 is a scaling factor
+#     brownsig(trial, 300:700) = brownsig(trial, 300:700) + alphasig(300:700); 
+#     subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspec1(trial, :) = abs(fftspec); % save it for later
+#     subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
+#     pause(.2)
+# end
 
-figure
-plot(mean((sumspec1(:, 2:30))))
-xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
+# figure
+# plot(mean((sumspec1(:, 2:30))))
+# xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectrum')
 
 
 # %% [markdown]
@@ -443,18 +444,18 @@ for trial in range(50):
     plt.plot( np.abs(fftspec[2:30])), plt.xlabel('Frequency (Hz)'),plt.ylabel('Amplitude'),plt.title('Amplitude spectrum')
 
 
-# %%
-figure
-for trial = 1:50
-    brownsig(trial,:) = cumsum(whitesig(trial, :));
-    alphasig = sin(2*pi*time*(10+rand(1,1).*1)).*4; % * 4 is a scaling factor
-    brownsig(trial, 400:600) = brownsig(trial, 400:600) + alphasig(400:600); 
-    subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
-    fftspec = fft(brownsig(trial,:)); % calculate DFT
-    sumspec2(trial, :) = abs(fftspec); % save it for later
-    subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
-    pause(.2)
-end
+# %% [matlab]
+# figure
+# for trial = 1:50
+#     brownsig(trial,:) = cumsum(whitesig(trial, :));
+#     alphasig = sin(2*pi*time*(10+rand(1,1).*1)).*4; % * 4 is a scaling factor
+#     brownsig(trial, 400:600) = brownsig(trial, 400:600) + alphasig(400:600); 
+#     subplot(2,1,1), plot(time, brownsig(trial,:)), xlabel('Time (sec)'), ylabel('Voltage'), title('1 second of Brownian noise')
+#     fftspec = fft(brownsig(trial,:)); % calculate DFT
+#     sumspec2(trial, :) = abs(fftspec); % save it for later
+#     subplot(2,1,2), plot(abs(fftspec (2:30))), xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Amplitude spectrum')
+#     pause(.2)
+# end
 
 # %% [markdown]
 # Let's compare the results. In red, the averaged spectrum (the average of 50 spectra for 50 trials) with oscillatory events in the range from 300 to 700 ms of the 1000 ms (1-second) segment, varying between 8 and 13 Hz across trials. In blue, the averaged spectrum (the average of 50 spectra for 50 trials) with oscillatory events in the range from 400 to 600 ms of the 1000 ms (1-second) segment, varying between 10 and 11 Hz across trials.
@@ -467,13 +468,13 @@ plt.plot(np.mean(sumspec2[:, 2:30], axis=0))
 plt.xlabel('Frequency (Hz)'),plt.ylabel('Amplitude'),plt.title('Averaged amplitude spectrum')
 plt.legend(['Mean spectrum of variable (8-13Hz) alpha (400ms duration)', 'Mean spectrum of variable (10-11 Hz) alpha (200ms duration)'])
 
-# %%
-figure
-plot(mean((sumspec1(:, 2:30))), 'r')
-hold on
-plot(mean((sumspec2(:, 2:30))), 'b')
-xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectra')
-legend('Mean spectrum of variable (8-13Hz) alpha (400ms duration)', 'Mean spectrum of variable (10-11 Hz) alpha (200ms duration)')
+# %% [matlab]
+# figure
+# plot(mean((sumspec1(:, 2:30))), 'r')
+# hold on
+# plot(mean((sumspec2(:, 2:30))), 'b')
+# xlabel('Frequency (Hz)'),ylabel('Amplitude'),title('Averaged amplitude spectra')
+# legend('Mean spectrum of variable (8-13Hz) alpha (400ms duration)', 'Mean spectrum of variable (10-11 Hz) alpha (200ms duration)')
 
 
 # %% [markdown]
