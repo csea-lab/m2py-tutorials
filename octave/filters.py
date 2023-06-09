@@ -13,13 +13,13 @@ from scipy.signal import butter, lfilter, freqz, filtfilt
 
 #testdata= spatialPattern([1,2551],-2)
 
-
+#  ???? where is this function defined?
 
 
 
 # %% [matlab]
-clear, close all
-testdata = spatialPattern([1,2551],-2); 
+# clear, close all
+# testdata = spatialPattern([1,2551],-2); 
 # % spatialPattern by Jon Yearsley 1 May 2004 can be used to make 1/f noise
 # % which looks like EEG
 
@@ -36,10 +36,10 @@ plt.title('Unfiltered EEG signal')
 
 
 # %% [matlab]
-timeaxis = -3.6:0.002:1.5; % generate a time axis, in seconds this was sampled at 500 Hz
-figure(1), hold on
-plot(timeaxis, testdata)
-title('Unfiltered EEG signal')
+# timeaxis = -3.6:0.002:1.5; % generate a time axis, in seconds this was sampled at 500 Hz
+# figure(1), hold on
+# plot(timeaxis, testdata)
+# title('Unfiltered EEG signal')
 
 #--
 # %% [markdown]
@@ -59,11 +59,11 @@ plt.plot(B)
 
 
 # %% [matlab]
-cutoff = 20/250
-[A, B] = butter(5, cutoff); % this is a 5th order filter, it will have 6 values
- % let's plot the filter coefficients - i.e. the numbers that make up the filter.  
-figure(2)
-subplot(2,1,1), plot(A), subplot(2,1,2), plot(B)
+# cutoff = 20/250
+# [A, B] = butter(5, cutoff); % this is a 5th order filter, it will have 6 values
+#  % let's plot the filter coefficients - i.e. the numbers that make up the filter.  
+# figure(2)
+# subplot(2,1,1), plot(A), subplot(2,1,2), plot(B)
 
 #--
 # %% [markdown]
@@ -76,9 +76,10 @@ plt.plot(timeaxis, filtered_data, 'r')
 plt.show()
 
 # %% [matlab]
-filtered_data = filtfilt(A, B, testdata);
-figure(1)
-plot(timeaxis, filtered_data, 'r')
+
+# filtered_data = filtfilt(A, B, testdata);
+# figure(1)
+# plot(timeaxis, filtered_data, 'r')
 
 #--
 # %% [markdown]
@@ -92,9 +93,10 @@ plt.ylim([-1.49, 5.9])
 plt.show()
 
 # %% [matlab]
-xlim([-2.109 -1.691])
-ylim([-1.49 5.92])
-legend('unfiltered', 'lowpass filtered')
+
+# xlim([-2.109 -1.691])
+# ylim([-1.49 5.92])
+# legend('unfiltered', 'lowpass filtered')
 
 #--
 # %% [markdown]
@@ -110,11 +112,12 @@ plt.plot(Bh)
 plt.show()
 
 # %% [matlab]
-cutoff = 2/250
-[Ah, Bh] = butter(5, cutoff, 'high'); % this is a 2nd order filter, it will have 3 values
-# % let's plot the filter coefficients - i.e. the numbers that make up the filter.  
-figure(3)
-subplot(2,1,1), plot(Ah), subplot(2,1,2), plot(Bh)
+
+# cutoff = 2/250
+# [Ah, Bh] = butter(5, cutoff, 'high'); % this is a 2nd order filter, it will have 3 values
+# # % let's plot the filter coefficients - i.e. the numbers that make up the filter.  
+# figure(3)
+# subplot(2,1,1), plot(Ah), subplot(2,1,2), plot(Bh)
 
 #--
 # %% [markdown]
@@ -131,11 +134,12 @@ plt.show()
 
 
 # %% [matlab]
-filtered_datah = filtfilt(Ah, Bh, filtered_data);
-figure(1)
-xlim([-3.5 1.6])
-ylim([-15 15])
-plot(timeaxis, filtered_datah, 'g'), legend('unfiltered', 'lowpass filtered', 'hi & lo filtered filtered')
+
+# filtered_datah = filtfilt(Ah, Bh, filtered_data);
+# figure(1)
+# xlim([-3.5 1.6])
+# ylim([-15 15])
+# plot(timeaxis, filtered_datah, 'g'), legend('unfiltered', 'lowpass filtered', 'hi & lo filtered filtered')
 
 #--
 # %% [markdown]
@@ -148,9 +152,10 @@ plt.ylim([-1.49 5.92])
 plt.show()
 
 # %% [matlab]
-xlim([-2.109 -1.691])
-ylim([-1.49 5.92])
-legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
+
+# xlim([-2.109 -1.691])
+# ylim([-1.49 5.92])
+# legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
 
 #--
 # %% [markdown]
@@ -163,15 +168,17 @@ FFT_hp = np.abs(np.fft.fft(filtered_datah))
 
 
 # %% [matlab]
-FFT_orig = abs(fft(testdata)); 
-FFT_lp =  abs(fft(filtered_data)); 
-FFT_hp = abs(fft(filtered_datah)); 
+
+# FFT_orig = abs(fft(testdata)); 
+# FFT_lp =  abs(fft(filtered_data)); 
+# FFT_hp = abs(fft(filtered_datah)); 
 
 #--
 # %% [markdown]
 # % make a frequency axis
 
 # %%
+
 faxis = np.arange(0,250,1000/(len(testdata)*2)) #0.5)
 
 plt.plot(faxis[0:120], FFT_orig[0:120])
@@ -181,13 +188,14 @@ plt.legend(['unfiltered', 'lowpass filtered', 'hi & lo filtered'])
 
 
 # %% [matlab]
-faxis = 0:1000/(length(testdata).*2):250; 
-figure
-plot(faxis(1:120), FFT_orig(1:120))
-hold on
-plot(faxis(1:120), FFT_lp(1:120))
-plot(faxis(1:120), FFT_hp(1:120))
-legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
+
+# faxis = 0:1000/(length(testdata).*2):250; 
+# figure
+# plot(faxis(1:120), FFT_orig(1:120))
+# hold on
+# plot(faxis(1:120), FFT_lp(1:120))
+# plot(faxis(1:120), FFT_hp(1:120))
+# legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
 
 #--
 # %% [markdown]
@@ -196,12 +204,18 @@ legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
 # %%
 
 
+plt.figure()
+plt.legend(['unfiltered', 'lowpass filtered', 'hi & lo filtered'])
+plt.title('zoomed in')
+plt.xlim([10, 25])
+plt.ylim([-1.49, 50])
 
 
 # %% [matlab]
-xlim([10 25])
-ylim([-1.49 50])
-legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
+
+# xlim([10 25])
+# ylim([-1.49 50])
+# legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
 
 #--
 # %% [markdown]
@@ -210,11 +224,18 @@ legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
 # %%
 
 
+plt.figure()
+plt.legend(['unfiltered', 'lowpass filtered', 'hi & lo filtered'])
+plt.title('zoomed in')
+plt.xlim([0, 6])
+plt.ylim([-1.49, 300])
+
 
 
 # %% [matlab]
-xlim([0 6])
-ylim([-1.49 300])
-legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
+
+# xlim([0 6])
+# ylim([-1.49 300])
+# legend('unfiltered', 'lowpass filtered', 'hi & lo filtered')
 
 #--
