@@ -5,11 +5,48 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import butter, lfilter, freqz, filtfilt
+from scipy.signal import butter, lfilter, freqz, filtfilt, hilbert
+
+# %%
+
+def freqtag_HILB(data, taggingfreq, filterorder, sensor2plot, plotflag, fsamp):
+    taxis = np.arange(0, data.shape[0]*1000/fsamp, 1000/fsamp)
+    taxis = taxis - 1000/fsamp
+    taxis = taxis/1000
+
+    uppercutoffHz = taggingfreq + 0.5
+    Blow, Alow = butter(filterorder, uppercutoffHz/(fsamp/2))
+
+    lowercutoffHz = taggingfreq - 0.5
+    Bhigh, Ahigh = butter(filterorder, lowercutoffHz/(fsamp/2), 'high')
+
+    data = data.T
+
+    lowpassdata = filtfilt(Blow, Alow, data)
+    lowhighpassdata = filtfilt(Bhigh, Ahigh, lowpassdata)
+
+    tempmat = hilbert(lowhighpassdata)
+
+    tempmat = tempmat.T
+
+    if plotflag:
+        plt.figure(10)
+        plt.plot(taxis, lowhighpassdata[:,sensor2plot], hold=True)
+        plt.plot(taxis, np.imag(tempmat[sensor2plot, :]), 'r', hold=True)
+        plt.plot(taxis, np.abs(tempmat[sensor2plot, :]), 'k', hold=True)
+        plt.show(block=False)
+        plt.pause(0.5)
+        plt.hold(False)
+
+    hilbamp = np.abs(tempmat)
+    phase = np.angle(tempmat)
+    complex_val = tempmat  # Renamed to avoid conflict with Python's built-in complex type
+
+    return hilbamp, phase, complex_val
 
 
 # %%
-time = np.arange(0, 1, 0.001) #one second of discrete time, sampled at 1000 Hz
+time = np.arange(0, 3, 0.001) #one second of discrete time, sampled at 1000 Hz
 
 # %% [matlab]
 # clear
@@ -21,7 +58,7 @@ time = np.arange(0, 1, 0.001) #one second of discrete time, sampled at 1000 Hz
 
 
 # %%
-temp1 = np.random.uniform(low=0.0, high=1.0, size=(1000))-0.5
+temp1 = np.random.uniform(low=0.0, high=1.0, size=(3000))-0.5
 brownsig = np.cumsum(temp1)
 brownsig  = brownsig-np.mean(brownsig)
 
@@ -84,18 +121,22 @@ Sin7_5Hz = np.sin(2*np.pi*time*7.5)*SNR
 avgsig = np.zeros(3000)
 
 for trial in range(30):
-    temp1 = np.random.uniform(low=0.0, high=1.0, size=(1000))-0.5
+    temp1 = np.random.uniform(low=0.0, high=1.0, size=(3000))-0.5
     brownsig = np.cumsum(temp1)
     brownsig  = brownsig-np.mean(brownsig)
 
     sumsig = brownsig.copy()
-    jitter = np.random.randint(1, 30)
-    sumsig[500:2500] = brownsig[500:2500] + Sin7_5Hz[500+jitter:2500+jitter]
+    jitter = np.random.randint(1, 31)
+
+    sumsig[500:2500] =  brownsig[500:2500] + Sin7_5Hz[(500+jitter):(2500+jitter)]
 
   #?#  #hilbamp, phase, complex = freqtag_HILB(sumsig, 7.5, 8, 1, 0, 1000)
+    #                                           data, taggingfreq, filterorder, sensor2plot, plotflag, fsamp
+    hilbamp, phase, complex_val = freqtag_HILB(data=sumsig, taggingfreq=7.5, filterorder=8, sensor2plot=1, plotflag=0,fsamp=1000)
 
     avgsig = avgsig + sumsig
     #?# hilbamp, phase, complex = freqtag_HILB(avgsig, 7.5, 8, 1, 0, 1000)
+    hilbamp, phase, complex_val = freqtag_HILB(data=avgsig, taggingfreq=7.5, filterorder=8, sensor2plot=1, plotflag=0,fsamp=1000)
 
     plt.plot(time, avgsig)
     plt.plot(time, hilbamp)
@@ -140,15 +181,15 @@ Sin7_5Hz = np.sin(2*np.pi*time*7.5)*SNR
 hilbavg = np.zeros(3000)
 
 for trial in range(30):
-    temp1 = np.random.uniform(low=0.0, high=1.0, size=(1000))-0.5 # zero-center the white noise, because we use cumulative sum later
+    temp1 = np.random.uniform(low=0.0, high=1.0, size=(3000))-0.5 # zero-center the white noise, because we use cumulative sum later
     brownsig = np.cumsum(temp1)  # Brownian noise is the cumulative sum of white noise
     brownsig  = brownsig-np.mean(brownsig)
     sumsig = brownsig.copy()
     jitter = np.random.randint(1, 30)
-    sumsig[500:2500] = brownsig[500:2500] + Sin7_5Hz[500+jitter:2500+jitter]
+    sumsig[500:2500] = brownsig[500:2500] + Sin7_5Hz[(500+jitter):(2500+jitter)]
 
     #?# hilbamptrial, phase, complex = freqtag_HILB(sumsig, 7.5, 8, 1, 0, 1000)
-
+    hilbamptrial, phase, complex_val = freqtag_HILB(data=sumsig, taggingfreq=7.5, filterorder=8, sensor2plot=1, plotflag=0,fsamp=1000)
     hilbavg = hilbavg + hilbamptrial
 
     plt.plot(time, hilbavg)
