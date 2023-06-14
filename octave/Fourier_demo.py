@@ -4,16 +4,18 @@
 # The goal of FFT is to take time domain data (EEG over time) and give you a frequency spectrum (Frequency domain data), i.e. a plot where frequency is on the x and the power or magnitude at each frequency is on the y-axis. 
 
 # %% [markdown]
-First, load the example data
+#First, load the example data
 
 # %%[python]
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io as sio
 import scipy.signal as sig
-import mne
+
 
 # %%
+import mne
+
 data_path = mne.datasets.ssvep.data_path()
 data_path
 bids_fname = (
@@ -32,6 +34,7 @@ bids_fname = (
 raw = mne.io.read_raw_brainvision(bids_fname, preload=True, verbose=False)
 raw.info["line_freq"] = 50.0
 
+# %%
 # Set montage
 montage = mne.channels.make_standard_montage("easycap-M1")
 raw.set_montage(montage, verbose=False)
@@ -44,6 +47,10 @@ raw.filter(l_freq=0.1, h_freq=None, fir_design="firwin", verbose=False)
 
 SampRate = 500 # Sampling rate in Hz
 raw_rs=raw.copy().resample(sfreq=500, verbose=False)
+
+
+
+# %%
 
 # Construct epochs
 event_id = {"12hz": 255, "15hz": 155}
@@ -61,6 +68,7 @@ epochs = mne.Epochs(
 )
 
 # %%
+
 epo1=epochs[0].get_data()
 print(epo1.shape)
 epochs.info['ch_names']
@@ -73,11 +81,12 @@ print(s20_data.shape)
 plt.plot(tme,s20_data)
 plt.show()
 
+
 # %%
-s20_data_ct=s20_data[:2551]
+s20_data_cut=s20_data[:2551]
 taxis=tme[:2551]
 #np.shape(s20_data_ct)
-plt.plot(taxis,s20_data_ct)
+plt.plot(taxis,s20_data_cut)
 plt.show()
 
 # %%
@@ -91,6 +100,8 @@ plt.show()
 # data = squeeze(outmat(68,:, 40))'; % this picks the 68th channel and the 40th trial (out of 41).
 # % squeeze gets rid of third dimension tha matlab wants to keep around, even
 # % thoug we only have one column vector of data now
+
+data = s20_data_cut.copy()
 
 plt.plot(taxis, data)
 plt.title('Our example data')
@@ -126,7 +137,7 @@ plt.show()
 #Now, do a barebone DFT (FFT)
 
 # %%
-data= s20_data_ct.copy()
+
 NFFT= len(data)
 fftMat = np.fft.fft(data, NFFT) # in matlab FFT always acros rows within columns
 plt.plot(fftMat,'b',linewidth=0.5,alpha=0.5, marker='o',markersize=0.5,markevery=10)
