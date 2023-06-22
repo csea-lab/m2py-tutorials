@@ -1,6 +1,11 @@
 # m2py-tutorials
 Matlab live scripts translated to python with minimal dependencies:
 
+Where to start using these scripts:
+
+- [NIH OER: General Information to install with Anaconda](https://www.nihlibrary.nih.gov/resources/tools/anaconda-and-python)
+- [Python for Matlab-users: Anaconda installation of MNE-Python with Spyder IDE](https://mne.tools/stable/install/installers.html)
+
 ## Matlab to Python Tutorial Inventory:
 
 - de_convolution.py
