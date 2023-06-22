@@ -1,6 +1,8 @@
 # m2py-tutorials
 Matlab live scripts translated to python with minimal dependencies:
 
+## Matlab to Python Tutorial Inventory:
+
 - de_convolution.py
 - introto_FourierUncertainty_no-m.py
 - Introto_Oneoverf_no-m.py
@@ -20,15 +22,11 @@ In `octave/` dir waiting for sample data:
 - octave/GrangerCausality
 - octave/MNE_SourceEstimation
 
-## Extensive Guide to using Scipy and Numpy (especially to translate Matlab to Python)
-[Scipy Lecture Notes: v 2022.1 ](http://scipy-lectures.org)  
-- Tutorials on the scientific Python ecosystem: a quick introduction to central tools and techniques. 
-- The different chapters each correspond to a 1 to 2 hours course with increasing level of expertise, from beginner to expert.
-
-Code isomorphisms:
+## Code isomorphisms in Python relevant to translation from Matlab:
 
 Simulation initiation reference Schemes: Fs,T,L,& t OR ... mathematical notation??? 
 
+Creation of sumulation variables can take many alternative forms.
 
 - random variable and array generation: `randn` -> `np.random.randn`
 
@@ -36,7 +34,6 @@ Simulation initiation reference Schemes: Fs,T,L,& t OR ... mathematical notation
 - array generation: `:` -> `np.arange`
 - array generation: `1:10` -> `np.arange(1, 11)`
 - array generation: `1:2:10` -> `np.arange(1, 11, 2)`
-
 
 - array generation: `linspace` -> `np.linspace` (opt: `endpoint=True/False`)
 - array generation: `logspace` -> `np.logspace`
@@ -57,8 +54,20 @@ Simulation initiation reference Schemes: Fs,T,L,& t OR ... mathematical notation
 - plotting: `colorbar` -> `plt.colorbar`
 
 
-Python Concepts and rules of thumb:
 
+## Extensive Guide to using Scipy and Numpy (especially to translate Matlab to Python)
+[Scipy Lecture Notes: v 2022.1 ](http://scipy-lectures.org)  
+- Tutorials on the scientific Python ecosystem: a quick introduction to central tools and techniques. 
+- The different chapters each correspond to a 1 to 2 hours course with increasing level of expertise, from beginner to expert.
+
+### Matplotlib documentation: 
+
+- [example of colored noise generation and inset plots](https://matplotlib.org/stable/gallery/subplots_axes_and_figures/axes_demo.html)
+
+### Decorators:
+[Scipy Lecture Notes: Advanced Python - Decorators](http://scipy-lectures.org/advanced/advanced_python/index.html#decorators)
+
+Potential applications:
 Use function decorators to curry normal requred information and variables.  For example, in `de_convolution.py`:
 
     ~@functools.partial(np.convolve, mode='same')

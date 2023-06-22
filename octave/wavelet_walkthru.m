@@ -10,12 +10,13 @@ SampRate = 500;
 
 % Now, calculate the frequency steps for the wavelet, the resolution/stepwidth will need to be mentioned in your manuscript
 freqRes = 1000/(2551*2) % = 1000/5102 ms (2551 sample points sampled at 500 Hz)
-this is the best possible  frequency resolution (the most steps you can have). 
+% this is the best possible  frequency resolution (the most steps you can have). 
 freqs_allpossible = 0:freqRes:SampRate/2; % 1276 possible frequencies you can look at but that is too much, and unnecessarily dense 
 
 freqs_wanted = freqs_allpossible(20: 4: 200); % look at frequencies from 3.72 to 39 Hz 
-this applies to everything that is based on a frequency transformation, not just for wavelets. You can only go worse than your native (best)
-frequency resolution i.e. 1/(length in secons) Hz,  but you cannot make it better. 
+%this applies to everything that is based on a frequency transformation, not just for wavelets. You can only go worse than your native (best)
+
+% frequency resolution i.e. 1/(length in secons) Hz,  but you cannot make it better. 
 
 f0start = 20 %This is *NOT* in Hz! this is wavelet units, see lecture slides and above
 f0end = 200; % stop at 

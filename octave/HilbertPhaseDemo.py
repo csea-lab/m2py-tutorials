@@ -9,10 +9,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter, freqz, filtfilt, hilbert
+import scipy.io as sio
 
 # %%
-import mne
 
+"""
+import mne
 
 data_path = mne.datasets.ssvep.data_path()
 data_path
@@ -62,17 +64,14 @@ epochs = mne.Epochs(
     verbose=False,
 )
 
-# %%
 epo1=epochs[0].get_data()
 print(epo1.shape)
 epochs.info['ch_names']
 tme=epochs.times
 
-# %%
+
 epochs.info['ch_names'][13]
 
-
-# %%
 
  #   ----- ## NEED Cz
 #s20_data=epo1[0,29] # 29th sensor is Oz
@@ -84,14 +83,12 @@ print(s13_data.shape)
 plt.plot(tme,s13_data)
 plt.show()
 
-# %%
+
 s13_data_cut=s13_data[:2551]
 taxis=tme[:2551]
 #np.shape(s20_data_ct)
 
 
-
-# %%
 s13_data_cut.shape
 
 SampRate = 500
@@ -99,7 +96,31 @@ data = s13_data_cut.copy()
 
 plt.plot(taxis,data)
 plt.show()
+"""
 
+# %% [markdown]
+# % first load exampe data, make sure the data are in the current directory,
+# % or in the path
+
+# %%
+bop_107 = sio.loadmat('bop_107.fl40h1.E1.app1.mat')
+outmat = bop_107['outmat']
+
+# %%
+
+tx = sio.loadmat('taxis.mat')
+taxis = np.squeeze(tx['taxis'].copy())
+
+# %%
+print(outmat.shape)
+
+SampRate = 500
+data = outmat[:,:,:] # loads our example data set (129 sensors, 2551 points,  48 trials)
+data = np.squeeze(outmat[128,:, 1]).T  # the second trial, sensor Cz. 
+
+plt.figure()
+plt.plot(taxis,data)
+plt.title ('Our example data')
 
 # %% [matlab]
 # clear 
@@ -150,8 +171,8 @@ test = hilbert(sighighlow)
 plt.figure()
 plt.plot(taxis, test.imag)
 plt.title('imaginary part of the hilbert transform')
-#plt.xlim([-1263, -78])
-#plt.ylim([-0.214, 0.280])
+plt.xlim([-1263, -78])
+plt.ylim([-0.214, 0.280])
 plt.show()
 
 plt.figure()
@@ -162,9 +183,8 @@ plt.show()
 # %%
 plt.figure()
 plt.plot(taxis, np.angle(test))
-#plt.xlim(-3141, -2698)
-plt.xlim(2.0, 2.5)
-# plt.ylim([-2.71, 2.63])
+plt.xlim(-3141, -2698)
+plt.ylim([-2.71, 2.63])
 plt.title('screwed up phase zoomed in')
 plt.show()
 
@@ -191,7 +211,7 @@ plt.show()
 
 #--
 # %% [markdown]
-%now do it again, with narrow band bass :) 
+# %now do it again, with narrow band bass :) 
 
 
 # %%

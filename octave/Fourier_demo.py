@@ -4,16 +4,20 @@
 # The goal of FFT is to take time domain data (EEG over time) and give you a frequency spectrum (Frequency domain data), i.e. a plot where frequency is on the x and the power or magnitude at each frequency is on the y-axis. 
 
 # %% [markdown]
-#First, load the example data
+#First, load the example data [Go To line 100 for scipy.io.loadmat]
 
 # %%[python]
+
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io as sio
 import scipy.signal as sig
 
+# since the mat-file is saved as version 5.0 it's easy to load
+#import h5py # it might be possible to load matfiles > v.5.0 with the h5py package
 
 # %%
+"""
 import mne
 
 data_path = mne.datasets.ssvep.data_path()
@@ -25,7 +29,10 @@ raw = mne.io.read_raw_brainvision(bids_fname, preload=True, verbose=False)
 raw.info["line_freq"] = 50.0
 raw
 
+"""
 # %%# Load raw data
+
+"""
 data_path = mne.datasets.ssvep.data_path()
 bids_fname = (
     data_path / "sub-02" / "ses-01" / "eeg" / "sub-02_ses-01_task-ssvep_eeg.vhdr"
@@ -33,8 +40,10 @@ bids_fname = (
 
 raw = mne.io.read_raw_brainvision(bids_fname, preload=True, verbose=False)
 raw.info["line_freq"] = 50.0
+"""
 
 # %%
+"""
 # Set montage
 montage = mne.channels.make_standard_montage("easycap-M1")
 raw.set_montage(montage, verbose=False)
@@ -47,11 +56,10 @@ raw.filter(l_freq=0.1, h_freq=None, fir_design="firwin", verbose=False)
 
 SampRate = 500 # Sampling rate in Hz
 raw_rs=raw.copy().resample(sfreq=500, verbose=False)
-
-
+"""
 
 # %%
-
+"""
 # Construct epochs
 event_id = {"12hz": 255, "15hz": 155}
 events, _ = mne.events_from_annotations(raw_rs, verbose=False)
@@ -66,9 +74,10 @@ epochs = mne.Epochs(
     baseline=baseline,
     verbose=False,
 )
+"""
 
 # %%
-
+"""
 epo1=epochs[0].get_data()
 print(epo1.shape)
 epochs.info['ch_names']
@@ -80,14 +89,42 @@ print(s20_data.shape)
 #mne.pick_channels(epochs.info['ch_names'], ['Oz'])
 plt.plot(tme,s20_data)
 plt.show()
-
+"""
 
 # %%
+"""
 s20_data_cut=s20_data[:2551]
-taxis=tme[:2551]
+taxis=time[:2551]
 #np.shape(s20_data_ct)
 plt.plot(taxis,s20_data_cut)
 plt.show()
+"""
+
+# %%
+
+bop_107 = sio.loadmat('bop_107.fl40h1.E1.app1.mat')
+outmat = bop_107['outmat']
+
+# %%
+
+tx = sio.loadmat('taxis.mat')
+taxis = np.squeeze(tx['taxis'].copy())
+
+# %%
+print(bop_107_data.shape)
+
+SampRate = 500
+data = outmat[68,:, 40] # this picks the 68th channel and the 40th trial (out of 41).
+data = np.squeeze(outmat[68,:, 40]).T
+
+plt.figure()
+plt.plot(taxis,data)
+plt.title ('Our example data')
+
+# squeeze gets rid of third dimension tha matlab wants to keep around, even
+# though we only have one column vector of data now
+
+
 
 # %%
 # load('bop_107.fl40h1.E1.app1.mat') % loads our example data set (129 sensors, 2551 points, 41 trials)
@@ -131,6 +168,7 @@ plt.show()
 # % squeeze gets rid of third dimension tha matlab wants to keep around, even
 # % thoug we only have one column vector of data now
 # figure, plot(taxis, data), title ('Our example data')
+
 
 # %% [markdown]
 #Question: why is it interesting to pick a trial from late in the experiment? 
@@ -380,11 +418,13 @@ specwindowed = Magwindowed[0:round(NFFT/2)] # take only lower half of the spectr
 
 plt.subplot(2,1,1)
 plt.plot(freq_axis[0:200], spec[0:200], 'k')
+plt.ylim([0,3.5])
 plt.xlabel('Frequency in Hz')
 plt.ylabel('Scaled power (density, µV^2/Hz)') 
 plt.title('Unwindowed power')
 plt.subplot(2,1,2)
 plt.plot(freq_axis[0:200], specwindowed[0:200])
+plt.ylim([0,3.5])
 plt.xlabel('Frequency in Hz')
 plt.ylabel('Scaled power (density, µV^2/Hz)')
 plt.title('Windowed power')
