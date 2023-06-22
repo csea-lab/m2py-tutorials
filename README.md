@@ -8,57 +8,21 @@ Where to start using these scripts:
 
 ## Matlab to Python Tutorial Inventory:
 
-- de_convolution.py
-- introto_FourierUncertainty_no-m.py
-- Introto_Oneoverf_no-m.py
+- [introto_DFT.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/notebooks/introto_DFT.ipynb)
+- [Fourier_demo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/notebooks/.ipynb)
+- [HilbertPhaseDemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/notebooks/HilbertPhaseDemo.ipynb)
+- [hilbertavgdemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/notebooks/hilbertavgdemo.ipynb)
+- [filters.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/notebooks/filters.ipynb)
+- [de_convolution.py](https://github.com/csea-lab/m2py-tutorials/blob/py-scripts/de_convolution.py)
+- [introto_FourierUncertainty_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/py-scripts/introto_FourierUncertainty_no-m.py)
+- [Introto_Oneoverf_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/py-scripts/Introto_Oneoverf_no-m.py)
 
-The following are completed but not fully tested (i.e., in `octave/` dir):
-- octave/introto_DFT.py
-- octave/Fourier_demo.py (with some MNE sample data)
-- octave/HilbertPhaseDemo.py (with some MNE sample data)
-- octave/hilbertavgdemo.py (with some MNE sample data)
-
-
-In `octave/` dir waiting for sample data:
+In `octave/` dir to be fully completed :
 - octave/wavelet_walkthru 
 - octave/Crossfreq_coupling
 - octave/MNE_SourceEstimation
-- octave/filters
 - octave/GrangerCausality
 - octave/MNE_SourceEstimation
-
-## Code isomorphisms in Python relevant to translation from Matlab:
-
-Simulation initiation reference Schemes: Fs,T,L,& t OR ... mathematical notation??? 
-
-Creation of sumulation variables can take many alternative forms.
-
-- random variable and array generation: `randn` -> `np.random.randn`
-
-- array generation: `1` -> `np.array([1])`
-- array generation: `:` -> `np.arange`
-- array generation: `1:10` -> `np.arange(1, 11)`
-- array generation: `1:2:10` -> `np.arange(1, 11, 2)`
-
-- array generation: `linspace` -> `np.linspace` (opt: `endpoint=True/False`)
-- array generation: `logspace` -> `np.logspace`
-- array generation: `zeros` -> `np.zeros`
-- array generation: `ones` -> `np.ones`
-
-- array indexing: `:` -> `:`
-- array indexing: `end` -> `-1`
-- array indexing: `end-1` -> `-2`
-
-
-- plotting: `plot` -> `plt.plot`
-- plotting: `imagesc` -> `plt.imshow`
-- plotting: `axis` -> `plt.axis`
-- plotting: `xlabel` -> `plt.xlabel`
-- plotting: `ylabel` -> `plt.ylabel`
-- plotting: `title` -> `plt.title`
-- plotting: `colorbar` -> `plt.colorbar`
-
-
 
 ## Extensive Guide to using Scipy and Numpy (especially to translate Matlab to Python)
 [Scipy Lecture Notes: v 2022.1 ](http://scipy-lectures.org)  
@@ -104,3 +68,36 @@ Use `np.testing.assert_array_equal` to check for array equality.  For example, i
 'The signal and ??? must have the same shape to apply ???'
 
 indicate that defaults are used
+
+
+## Code isomorphisms in Python relevant to translation from Matlab:
+
+Simulation initiation reference Schemes: Fs,T,L,& t OR ... mathematical notation??? 
+
+Creation of sumulation variables can take many alternative forms.
+
+- random variable and array generation: `randn` -> `np.random.randn`
+
+- array generation: `1` -> `np.array([1])`
+- array generation: `:` -> `np.arange`
+- array generation: `1:10` -> `np.arange(1, 11)`
+- array generation: `1:2:10` -> `np.arange(1, 11, 2)`
+
+- array generation: `linspace` -> `np.linspace` (opt: `endpoint=True/False`)
+- array generation: `logspace` -> `np.logspace`
+- array generation: `zeros` -> `np.zeros`
+- array generation: `ones` -> `np.ones`
+
+- array indexing: `:` -> `:`
+- array indexing: `end` -> `-1`
+- array indexing: `end-1` -> `-2`
+
+
+- plotting: `plot` -> `plt.plot`
+- plotting: `imagesc` -> `plt.imshow`
+- plotting: `axis` -> `plt.axis`
+- plotting: `xlabel` -> `plt.xlabel`
+- plotting: `ylabel` -> `plt.ylabel`
+- plotting: `title` -> `plt.title`
+- plotting: `colorbar` -> `plt.colorbar`
+
