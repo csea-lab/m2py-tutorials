@@ -9,7 +9,7 @@ Where to start using these scripts:
 ## Matlab to Python Tutorial Inventory:
 
 - [introto_DFT.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/introto_DFT.ipynb)
-- [Fourier_demo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/.ipynb)
+- [Fourier_demo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/Fourier_demo.ipynb)
 - [HilbertPhaseDemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/HilbertPhaseDemo.ipynb)
 - [hilbertavgdemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/hilbertavgdemo.ipynb)
 - [filters.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/filters.ipynb)
