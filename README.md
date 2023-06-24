@@ -14,8 +14,8 @@ Where to start using these scripts:
 - [hilbertavgdemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/hilbertavgdemo.ipynb)
 - [filters.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/filters.ipynb)
 - [de_convolution.py](https://github.com/csea-lab/m2py-tutorials/blob/main/py-scripts/de_convolution.py)
-- [introto_FourierUncertainty_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/main/py-scripts/introto_FourierUncertainty_no-m.py)
-- [Introto_Oneoverf_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/main/py-scripts/Introto_Oneoverf_no-m.py)
+- [introto_FourierUncertainty_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/introto_FourierUncertainty.ipynb)
+- [Introto_Oneoverf_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/Introto_Oneoverf.ipynb)
 
 In `octave/` dir to be fully completed :
 - octave/wavelet_walkthru 
