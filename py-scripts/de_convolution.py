@@ -225,3 +225,41 @@ plt.show()
 
  """
 
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+
+X = np.arange(-2.1, 4, 0.001)
+F1 = np.exp(-X)
+F1[X < 0] = 0
+F2 = np.abs(X) <= 0.5
+
+os.makedirs('figs', exist_ok=True)
+zero_offset = np.argmin(np.abs(X))
+
+SyncFrames = [1] + [round(20.3366666 * i) for i in range(1, len(X)+1)]
+frame = 1
+integral = np.empty_like(X)
+integral[:] = np.NaN
+
+for offset_i in range(len(X)):
+    offset = X[offset_i]
+    shift = offset_i - zero_offset
+    F2_shifted = np.roll(F2, shift)
+    product = F2_shifted * F1
+    integral[offset_i] = np.sum(product) / len(X) * (X[-1] - X[0])
+
+    if offset_i == SyncFrames[frame-1]:
+        frame = frame + 1
+        plt.fill_between(X, 0, product, color='yellow')
+        plt.plot(X, F1, 'b', X, F2_shifted, 'r', X, integral, 'k', [offset, offset], [0, 2], 'k:')
+        plt.axis([-1.6, 3.1, 0, 1.1])
+        plt.xlabel('\u03C4 & t')
+        plt.grid(True)
+        plt.legend(['Area under f(\u03C4)g(t-\u03C4)', 'f(\u03C4)', 'g(t-\u03C4)', '(f\u2217g)(t)'])
+        plt.show()
+        plt.savefig(f'figs/{frame:03d}.png', dpi=250)
+
+
+# %%
