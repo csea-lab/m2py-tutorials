@@ -13,6 +13,7 @@ Where to start using these scripts:
 - [HilbertPhaseDemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/HilbertPhaseDemo.ipynb)
 - [hilbertavgdemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/hilbertavgdemo.ipynb)
 - [filters.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/filters.ipynb)
+- [dotproduct.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/dotproduct.ipynb)
 - [convolution.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/convolution.ipynb)
 - [convolution_complex.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/convolution_complex.ipynb)
 - [introto_FourierUncertainty_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/introto_FourierUncertainty.ipynb)
