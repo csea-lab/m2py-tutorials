@@ -8,14 +8,19 @@ Where to start using these scripts:
 
 ## Matlab to Python Tutorial Inventory:
 
-- [introto_DFT.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/introto_DFT.ipynb)
-- [Fourier_demo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/Fourier_demo.ipynb)
-- [HilbertPhaseDemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/HilbertPhaseDemo.ipynb)
-- [hilbertavgdemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/hilbertavgdemo.ipynb)
-- [filters.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/filters.ipynb)
+### Mathematical foundations: Dot product, Convolution, Discrete Fourier Transform
+
 - [dotproduct.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/dotproduct.ipynb)
 - [convolution.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/convolution.ipynb)
 - [convolution_complex.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/convolution_complex.ipynb)
+- [introto_DFT.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/introto_DFT.ipynb)
+- [Fourier_demo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/Fourier_demo.ipynb)
+- [filters.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/filters.ipynb)
+
+### Hilbert Transform, Wavelets, and more
+
+- [HilbertPhaseDemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/HilbertPhaseDemo.ipynb)
+- [hilbertavgdemo.ipynb](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/hilbertavgdemo.ipynb)
 - [introto_FourierUncertainty_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/introto_FourierUncertainty.ipynb)
 - [Introto_Oneoverf_no-m.py](https://github.com/csea-lab/m2py-tutorials/blob/main/notebooks/Introto_Oneoverf.ipynb)
 
