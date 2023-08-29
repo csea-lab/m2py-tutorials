@@ -76,6 +76,120 @@ Use `np.testing.assert_array_equal` to check for array equality.  For example, i
 
 indicate that defaults are used
 
+## Syntax differences between Matlab/Octave and Python (numpy/scipy) `[from ChatGPT]`
+
+MATLAB/Octave and Python with NumPy and SciPy are both widely used for scientific computing, but they have some syntactic differences that can be important when transitioning from one to the other. Here are some of the main syntactic differences:
+
+### Indexing
+
+- **MATLAB/Octave**: 1-based indexing
+  ```matlab
+  A = [1, 2, 3];
+  first_element = A(1);
+  ```
+- **Python**: 0-based indexing
+  ```python
+  A = [1, 2, 3]
+  first_element = A[0]
+  ```
+
+### End Keyword
+
+- **MATLAB/Octave**: Uses `end` to refer to the last index
+  ```matlab
+  last_element = A(end);
+  ```
+- **Python**: Uses `-1` to refer to the last index
+  ```python
+  last_element = A[-1]
+  ```
+
+### Slicing
+
+- **MATLAB/Octave**: Uses colon syntax
+  ```matlab
+  sub_array = A(1:2);
+  ```
+- **Python**: Uses colon syntax but with different rules due to 0-based indexing
+  ```python
+  sub_array = A[0:2]  # Note that the end index is exclusive in Python
+  ```
+
+### Functions and Libraries
+
+- **MATLAB/Octave**: Built-in functions often available without importing
+  ```matlab
+  y = sin(x);
+  ```
+- **Python**: Must import libraries to access similar functions
+  ```python
+  import numpy as np
+  y = np.sin(x)
+  ```
+
+### Matrix Operations
+
+- **MATLAB/Octave**: Designed for matrix operations, so `*` is matrix multiplication
+  ```matlab
+  C = A * B;
+  ```
+- **Python**: Use `@` for matrix multiplication, `*` for element-wise multiplication
+  ```python
+  C = A @ B
+  C = np.dot(A, B)  # Alternatively
+  ```
+
+### Element-wise Operations
+
+- **MATLAB/Octave**: Use `.*` for element-wise multiplication
+  ```matlab
+  C = A .* B;
+  ```
+- **Python**: Use `*` for element-wise multiplication
+  ```python
+  C = A * B
+  ```
+
+### Looping
+
+- **MATLAB/Octave**: `for` and `while` loops are similar but use `end` to close the loop
+  ```matlab
+  for i = 1:10
+      disp(i);
+  end
+  ```
+- **Python**: `for` and `while` loops use indentation to define the loop body
+  ```python
+  for i in range(1, 11):
+      print(i)
+  ```
+
+### Function Definition
+
+- **MATLAB/Octave**: Use `function` and `end` keywords
+  ```matlab
+  function y = my_function(x)
+      y = x * 2;
+  end
+  ```
+- **Python**: Use `def` and indentation
+  ```python
+  def my_function(x):
+      return x * 2
+  ```
+
+### Comments
+
+- **MATLAB/Octave**: Use `%` for comments
+  ```matlab
+  % This is a comment
+  ```
+- **Python**: Use `#` for comments
+  ```python
+  # This is a comment
+  ```
+
+These are just some of the main syntactic differences. There are also differences in how each language handles data types, file I/O, and other functionalities.
 
 ## Code isomorphisms in Python relevant to translation from Matlab:
 
